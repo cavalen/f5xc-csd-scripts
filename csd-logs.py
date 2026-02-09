@@ -28,7 +28,7 @@ def main():
     verbose_logs = []
 
     def log(message):
-        """Helper para acumular mensajes si verbose está activo"""
+        """Helper para acumular mensajes si verbose esta activo"""
         if args.verbose:
             verbose_logs.append(message)
 
@@ -53,10 +53,10 @@ def main():
     end_time_epoch = int(now.timestamp())
     start_time_epoch = int(start_dt.timestamp())
 
-    log(f"Configuración: Tenant={args.tenant}, Namespace={args.namespace}")
+    log(f"Configuracion: Tenant={args.tenant}, Namespace={args.namespace}")
     log(f"Ventana de tiempo: {datetime.fromtimestamp(start_time_epoch)} ({start_time_epoch}) a {datetime.fromtimestamp(end_time_epoch)} ({end_time_epoch})")
 
-    # --- 4. Configuración Request ---
+    # --- 4. Configuracion Request ---
     base_url = f"https://{args.tenant}.console.ves.volterra.io/api/shape/csd/namespaces/{args.namespace}/scripts"
     
     headers = {
@@ -71,9 +71,9 @@ def main():
     current_page_token = ""
     page_counter = 0
 
-    log("--- Iniciando Recolección de Datos ---")
+    log("--- Iniciando Recoleccion de Datos ---")
 
-    # --- 5. Bucle de Paginación ---
+    # --- 5. Loop de Paginacion ---
     while True:
         page_counter += 1
         
@@ -86,7 +86,7 @@ def main():
         }
 
         try:
-            log(f"Consultando página {page_counter}...")
+            log(f"Consultando pagina {page_counter}...")
 
             response = requests.get(base_url, params=params, headers=headers)
             response.raise_for_status()
@@ -98,32 +98,31 @@ def main():
             count_batch = len(batch_scripts)
             json_api_response.extend(batch_scripts)
             
-            log(f"  > Scripts encontrados en página {page_counter}: {count_batch}")
+            log(f"  > Scripts encontrados en pagina {page_counter}: {count_batch}")
 
-            # Verificar siguiente página
+            # Verificar siguiente pagina
             next_token = data.get("next_page_token")
             
             if not next_token:
-                log("  > No hay más páginas (token vacío). Finalizando bucle.")
+                log("  > No hay mas paginas (token vacío). Finalizando loop.")
                 break
             
-            log(f"  > Siguiente página detectada. Token: {next_token[:20]}...")
+            log(f"  > Siguiente pagina detectada. Token: {next_token[:20]}...")
             current_page_token = next_token
 
         except requests.exceptions.HTTPError as err:
-            log(f"Error HTTP Fatal en página {page_counter}: {err}")
-            print_logs() # Imprimimos los logs antes de salir por error
+            log(f"Error HTTP Fatal en pagina {page_counter}: {err}")
+            print_logs() # Imprimir logs antes de salir por error
             sys.exit(1)
         except Exception as err:
             log(f"Error Inesperado Fatal: {err}")
-            print_logs() # Imprimimos los logs antes de salir por error
+            print_logs() # Imprimir logs antes de salir por error
             sys.exit(1)
 
-    # --- 6. Generación de Salida (JSON o CSV) ---
+    # --- 6. Generacion de Salida (JSON o CSV) ---
     
     if args.format == 'json':
         final_output = {
-            #"total_count_retrieved": len(json_api_response),
             "scripts": json_api_response
         }
         print(json.dumps(final_output, indent=4))
@@ -131,12 +130,11 @@ def main():
 
     elif args.format == 'csv':
         if not json_api_response:
-            log("Alerta: La respuesta de la API no contiene scripts. No se generará CSV.")
+            log("Alerta: La respuesta de la API no contiene scripts. No se genera CSV.")
         else:
             # Obtener encabezados del primer elemento
             headers_csv = json_api_response[0].keys()
             
-            # CAMBIO: Delimiter ahora es coma ','
             writer = csv.DictWriter(sys.stdout, fieldnames=headers_csv, delimiter=',')
             
             writer.writeheader()
