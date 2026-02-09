@@ -27,7 +27,7 @@ path_to_venv\bin\activate
 **On Linux / macOS:**
 
 ```
-python3 -m venv venv
+python3 -m venv path_to_venv
 source path_to_venv\bin\activate
 ```
 
