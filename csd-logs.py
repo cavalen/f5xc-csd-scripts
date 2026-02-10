@@ -14,7 +14,7 @@ def main():
     
     parser.add_argument('-t', '--tenant', required=True, help='Nombre del Tenant')
     parser.add_argument('-n', '--namespace', required=True, help='Nombre del Namespace')
-    parser.add_argument('-h_time', '--hours', required=True, type=int, help='Horas de log a extraer')
+    parser.add_argument('-hours', '--hours', required=True, type=int, help='Horas de log a extraer')
     parser.add_argument('-v', '--verbose', action='store_true', help='Ver debug info al final de la ejecucion')
     
     parser.add_argument('-f', '--format', 
