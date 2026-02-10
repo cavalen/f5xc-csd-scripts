@@ -19,14 +19,14 @@ Follow these steps to isolate dependencies and run the script safely.
 Open your terminal in the folder where you saved the script (`api_request.py`) and run:
 
 **On Windows:**
-```bash
+```PowerShell
 python -m venv path_to_venv
 path_to_venv\bin\activate
 ```
 
 **On Linux / macOS:**
 
-```
+```bash
 python -m venv path_to_venv
 source path_to_venv\bin\activate
 ```
@@ -35,7 +35,7 @@ source path_to_venv\bin\activate
 
 The script requires the `requests` library. Install it by running:
 
-```
+```bash
 pip install requests
 ```
 
@@ -45,18 +45,19 @@ The script uses an environment variable to read the security token.
 Before running the script, you must export your token:
 
 **Windows (PowerShell):**
-``` PowerShell
+```PowerShell
 $env:APITOKEN="your_xc_token"
 ```
 
 **Linux / macOS (bash/zsh):**
-``` bash/zsh
+```bash
 export APITOKEN="your_xc_token"
 ```
 
 ## Usage
 The basic syntax is:
-python api_request.py -t <TENANT> -n <NAMESPACE> -hours <HOURS> [options]
+
+`python api_request.py -t <TENANT> -n <NAMESPACE> -hours <HOURS> [options]`
 
 |Parameter|Long Name  |Required|Description                               |
 ----------|-----------|--------|------------------------------------------|
@@ -78,17 +79,17 @@ python csd-logs.py -t my-company -n default -hours 24
 
 **2. Save JSON Output to a File**
 You can use your operating system's redirection operator `>` to save the result.
-```sh
+```bash
 python csd-logs.py -t my-company -n default -hours 24 > report.json
 ```
 
 **3. CSV Output**
-```sh
+```bash
 python csd-logs.py -t my-company -n default -hours 48 -o csv
 ```
 
 **4. Verbose Mode (Debugging)**
-```
+```bash
 python csd-logs.py -t my-company -n default -hours 12 -v
 ```
 Output example:
