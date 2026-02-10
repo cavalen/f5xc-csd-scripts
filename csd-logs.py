@@ -9,12 +9,12 @@ import csv
 def main():
     # --- 1. Configuración de Argumentos ---
     parser = argparse.ArgumentParser(
-                        description='Script API F5XC (CSD) con paginacion y Salida CSV/JSON',
-                        epilog="Valida que exista variable de entorno APITOKEN con el Token de F5XC")
+                        description='F5XC Client Side Defense - Scripts exporter',
+                        epilog="== IMPORTANTE: Variable de entorno APITOKEN debe estar definida ==")
     
     parser.add_argument('-t', '--tenant', required=True, help='Nombre del Tenant')
     parser.add_argument('-n', '--namespace', required=True, help='Nombre del Namespace')
-    parser.add_argument('-hours', '--hours', required=True, type=int, help='Horas de log a extraer')
+    parser.add_argument('-hours', '--hours', required=True, type=int, help='Horas de data a extraer')
     parser.add_argument('-v', '--verbose', action='store_true', help='Ver debug info al final de la ejecucion')
     
     parser.add_argument('-f', '--format', 
@@ -24,7 +24,7 @@ def main():
 
     args = parser.parse_args()
 
-    # Variable para acumular los logs
+    # Variable para acumular los logs (verbose)
     verbose_logs = []
 
     def log(message):
@@ -43,7 +43,7 @@ def main():
     # --- 2. Verificar Token ---
     api_token = os.getenv('APITOKEN')
     if not api_token:
-        # Aquí imprimimos directo porque es un error crítico de configuración inicial
+        # Imprimir directo porque es un error crítico de configuración inicial
         print("Error: Variable de entorno 'APITOKEN' no definida.", file=sys.stderr)
         sys.exit(1)
 
@@ -104,7 +104,7 @@ def main():
             next_token = data.get("next_page_token")
             
             if not next_token:
-                log("  > No hay mas paginas (token vacío). Finalizando loop.")
+                log("  > No hay mas paginas (token vacio). Finalizando loop.")
                 break
             
             log(f"  > Siguiente pagina detectada. Token: {next_token[:20]}...")
@@ -130,7 +130,7 @@ def main():
 
     elif args.format == 'csv':
         if not json_api_response:
-            log("Alerta: La respuesta de la API no contiene scripts. No se genera CSV.")
+            log("Alerta: La respuesta del API no contiene scripts. No se genera CSV.")
         else:
             # Obtener encabezados del primer elemento
             headers_csv = json_api_response[0].keys()
