@@ -50,7 +50,7 @@ $env:APITOKEN="your_xc_token"
 ```
 
 **Linux / macOS (bash/zsh):**
-``` bash/ash
+``` bash/zsh
 export APITOKEN="your_xc_token"
 ```
 
