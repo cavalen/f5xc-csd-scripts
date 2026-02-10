@@ -16,7 +16,7 @@ Follow these steps to isolate dependencies and run the script safely.
 
 ### 1. Create a Virtual Environment (venv)
 
-Open your terminal in the folder where you saved the script (`api_request.py`) and run:
+Open your terminal in the folder where you saved the script (`csd-logs.py`) and run:
 
 **On Windows:**
 ```PowerShell
@@ -57,7 +57,7 @@ export APITOKEN="your_xc_token"
 ## Usage
 The basic syntax is:
 
-`python api_request.py -t <TENANT> -n <NAMESPACE> -hours <HOURS> [options]`
+`python csd-logs.py -t <TENANT> -n <NAMESPACE> -hours <HOURS> [options]`
 
 |Parameter|Long Name  |Required|Description                               |
 ----------|-----------|--------|------------------------------------------|
