@@ -1,6 +1,6 @@
 # F5 Distributed Cloud - Client Side Defense Script exporter
 
-This Python script queries the F5 Distributed Cloud API to retrieve information about scripts executed within a specific **Tenant** and **Namespace** over a defined time window.
+This Python script queries the F5 Distributed Cloud API to retrieve information about scripts detected by the *Client Side Defense* service within a specific **Tenant** and **Namespace** over a defined time window.
 
 The script automatically handles API pagination and allows you to export the results in **JSON** or **CSV** format.
 
@@ -27,13 +27,13 @@ path_to_venv\bin\activate
 **On Linux / macOS:**
 
 ```
-python3 -m venv path_to_venv
+python -m venv path_to_venv
 source path_to_venv\bin\activate
 ```
 
 ### 2. Install Dependencies
 
-The script requires the requests library. Install it by running:
+The script requires the `requests` library. Install it by running:
 
 ```
 pip install requests
@@ -41,17 +41,17 @@ pip install requests
 
 ### Authentication
 
-The script uses an environment variable to read the security token. This prevents hardcoding credentials directly into the command line.
+The script uses an environment variable to read the security token.
 Before running the script, you must export your token:
 
 **Windows (PowerShell):**
 ``` PowerShell
-$env:APITOKEN="your_xc_token_here"
+$env:APITOKEN="your_xc_token"
 ```
 
-**Linux / macOS (Bash/Zsh):**
+**Linux / macOS (bash/zsh):**
 ``` bash/ash
-export APITOKEN="your_xc_token_here"
+export APITOKEN="your_xc_token"
 ```
 
 ## Usage
@@ -65,7 +65,7 @@ python api_request.py -t <TENANT> -n <NAMESPACE> -hours <HOURS> [options]
 |-hours   |--hours    |Yes     |Number of hours to look back (time window)|
 |-o       |--output   |No      |Output format: json (default) / csv       |
 |-v       |--verbose  |No      |Shows debug logs at the end of execution  |
-|-h       |--help     |No      |Quick help/Usage                          |
+|-h       |--help     |No      |Quick help / Usage                        |
 
 
 ### Execution Examples
@@ -114,7 +114,7 @@ Output example:
 }
 
 --- Verbose Log Output ---
-Configuración: Tenant=my-company, Namespace=default
+Configuracion: Tenant=my-company, Namespace=default
 Ventana de tiempo: 2026-02-04 12:01:09 (1770224469) a 2026-02-09 12:01:09 (1770656469)
 --- Iniciando Recoleccion de Datos ---
 Consultando pagina 1...
