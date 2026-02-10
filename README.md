@@ -92,7 +92,7 @@ python csd-logs.py -t my-company -n default -hours 48 -o csv
 ```bash
 python csd-logs.py -t my-company -n default -hours 12 -v
 ```
-Output example:
+Verbose output example:
 ```
 ...
         {
